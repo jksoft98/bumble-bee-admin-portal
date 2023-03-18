@@ -256,7 +256,7 @@
           @endif
 
           @if(in_array('product-create-view', session()->get('user_permissions')) || in_array('product-list-view', session()->get('user_permissions')) || in_array('brand-list-view', session()->get('user_permissions')) || in_array('category-list-view', session()->get('user_permissions')) || session()->get('user_role') == 1)
-          <li class="nav-item {{ (request()->is('product-create') || request()->is('product-list') || request()->is('product-edit/*') || request()->is('brand-list') || request()->is('category-list') ) ? 'menu-is-opening menu-open' : '' }}">
+          <li class="nav-item {{ (request()->is('product-create') || request()->is('product-list') || request()->is('product-list/*') || request()->is('product-edit/*') || request()->is('brand-list') || request()->is('category-list') ) ? 'menu-is-opening menu-open' : '' }}">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tasks"></i>
               <p>
@@ -276,7 +276,7 @@
               @if(in_array('product-list-view', session()->get('user_permissions')) || session()->get('user_role') == 1)
               <li class="nav-item">
                 <a href="/product-list" class="nav-link">
-                  <i class="far {{ (request()->is('product-list')) ? 'fa-dot-circle' : 'fa-circle' }} nav-icon"></i>
+                  <i class="far {{ request()->is('product-list') || (request()->is('product-list/*')) ? 'fa-dot-circle' : 'fa-circle' }} nav-icon"></i>
                   <p>List</p>
                 </a>
               </li>

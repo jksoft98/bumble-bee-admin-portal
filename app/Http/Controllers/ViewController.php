@@ -506,11 +506,15 @@ class ViewController extends Controller
     |--------------------------------------------------------------------------
     |
     */  
-    public function productList(Request $request)
+    public function productList(Request $request,$status=null)
     {
+        $requestArray = [];
+        if($status!=null){
+            $requestArray = ["status" => $status];
+        }
         $response = Http::withHeaders([
             'content-Type'  => 'applications/json', 'authorization' => session()->get('access_token')
-        ])->get(config('site-specific.api_url').'get-all-product-data');
+        ])->get(config('site-specific.api_url').'get-all-product-data',$requestArray);
         $response_data =json_decode($response);
         if(!empty($response_data)){
             if($response_data->success == true){
@@ -527,7 +531,9 @@ class ViewController extends Controller
                                                 config('site-specific.vfs-fonts-js'),config('site-specific.buttons-html5-min-js'),
                                                 config('site-specific.buttons-print-min-js'),config('site-specific.buttons-colVis-min-js'),
                                                 config('site-specific.product-list-init-js')),
-                    'products'          => $response_data->data,                            
+                    'products'          => $response_data->data->products,
+                    'counts'            => $response_data->data->counts,
+                    'selected_status'   => $status,                              
                 );
                 return $this->setDefault($data);
             }

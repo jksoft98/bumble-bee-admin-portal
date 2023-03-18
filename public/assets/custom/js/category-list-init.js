@@ -35,6 +35,7 @@ function categoryCreate(){
   modal.find('#category_name').val('');
   modal.find('#description').val('');
   modal.find('button[type=submit]').html('Create');
+  removeModalRequired(modal);
   modal.modal('show');
 }
 
@@ -54,5 +55,8 @@ function categoryEdit(ele){
   modal.find('#description').val(data.description);
   modal.find('.modal-body').append('<input type="hidden" id="category-id" name="category_id" value="'+data.id+'">');
   modal.find('button[type=submit]').html('Update');
+  removeModalRequired(modal);
   modal.modal('show');
 }
+
+

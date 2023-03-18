@@ -11,6 +11,8 @@ $( document ).ready(function() {
     customerCreateFormValidation();
     brandFormValidation();
     productValidation();
+    categoryFormValidation();
+    changeProductStatusFormValidation();
     additionalMethod();
 });
 
@@ -173,11 +175,39 @@ function customerCreateFormValidation(){
 
 /*
 |--------------------------------------------------------------------------
-| User Role form
+| Brand form
 |--------------------------------------------------------------------------
 */
 function brandFormValidation(){    
     $("#brand-form").validate({
+        ignore: "input[type=hidden]",
+        errorClass: "text-danger custom",
+        successClass: "text-success",
+        highlight: function (element, errorClass) {
+            $(element).removeClass(errorClass)
+        },
+        unhighlight: function (element, errorClass) {
+            $(element).removeClass(errorClass)
+        },
+        errorPlacement: function (error, element) {
+            element.closest( ".form-group" ).append( error);
+        },
+        submitHandler: function (form) {
+            invokeLoader();
+            form.submit();
+        }
+    })
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Category form
+|--------------------------------------------------------------------------
+*/
+function categoryFormValidation(){    
+    $("#category-form").validate({
         ignore: "input[type=hidden]",
         errorClass: "text-danger custom",
         successClass: "text-success",
@@ -233,6 +263,35 @@ function productValidation(){
                     }
                 });
             });
+        },
+        submitHandler: function (form) {
+            invokeLoader();
+            form.submit();
+        }
+    })
+}
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| product status form
+|--------------------------------------------------------------------------
+*/
+function changeProductStatusFormValidation(){    
+    $("#change-product-status-form").validate({
+        ignore: "input[type=hidden]",
+        errorClass: "text-danger custom",
+        successClass: "text-success",
+        highlight: function (element, errorClass) {
+            $(element).removeClass(errorClass)
+        },
+        unhighlight: function (element, errorClass) {
+            $(element).removeClass(errorClass)
+        },
+        errorPlacement: function (error, element) {
+            error.insertAfter(element);
         },
         submitHandler: function (form) {
             invokeLoader();

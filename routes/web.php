@@ -80,7 +80,7 @@ Route::group([
     Route::get('/product-edit/{id}'                 , 'ViewController@productEdit')->name('product-edit-view');
 
     /*----------------------------  Product List View -------------------------------*/     
-    Route::get('/product-list'                      , 'ViewController@productList')->name('product-list-view');
+    Route::get('/product-list/{status?}'            , 'ViewController@productList')->name('product-list-view');
 
 
 });
@@ -107,7 +107,7 @@ Route::group([
     */ 
 
     /*----------------------------  403 page View -------------------------------*/     
-    Route::get ('/403'                       , 'ViewController@forbidden')->name('Forbidden');
+    Route::get ('/403'                          , 'ViewController@forbidden')->name('Forbidden');
 
     
 
@@ -119,43 +119,48 @@ Route::group([
     */ 
 
     /*---------------------------- Display Product Image  ------------------------------------*/
-    Route::get('/product-image/{filename}'   , 'ApiController@getStorgeProductImage')->name('display-product-image');
+    Route::get('/product-image/{filename}'      , 'ApiController@getStorgeProductImage')->name('display-product-image');
 
     /*----------------------------  User Create Form Submit ------------------------------------*/    
-    Route::post('/user-create-submit'        , 'ApiController@userCreate')->name('user-create-submit');
+    Route::post('/user-create-submit'           , 'ApiController@userCreate')->name('user-create-submit');
 
     /*----------------------------  User Edit Form Submit ------------------------------------*/    
-    Route::post('/user-edit-submit'          , 'ApiController@userEdit')->name('user-edit-submit');
+    Route::post('/user-edit-submit'             , 'ApiController@userEdit')->name('user-edit-submit');
 
     /*----------------------------  User Role Create Form Submit ------------------------------------*/    
-    Route::post('/user-role-create-submit'   , 'ApiController@userRoleCreate')->name('user-role-create-submit');
+    Route::post('/user-role-create-submit'      , 'ApiController@userRoleCreate')->name('user-role-create-submit');
 
     /*----------------------------  User Role Create Form Submit ------------------------------------*/    
-    Route::post('/user-role-edit-submit'     , 'ApiController@userRoleEdit')->name('user-role-edit-submit');
+    Route::post('/user-role-edit-submit'        , 'ApiController@userRoleEdit')->name('user-role-edit-submit');
 
     /*----------------------------  Cuustomer Create Form Submit ------------------------------------*/    
-    Route::post('/customer-create-submit'    , 'ApiController@customerCreate')->name('customer-create-submit');
+    Route::post('/customer-create-submit'       , 'ApiController@customerCreate')->name('customer-create-submit');
 
     /*----------------------------  Cuustomer Edit Form Submit ------------------------------------*/    
-    Route::post('/customer-edit-submit'      , 'ApiController@customerEdit')->name('customer-edit-submit');
+    Route::post('/customer-edit-submit'         , 'ApiController@customerEdit')->name('customer-edit-submit');
 
     /*----------------------------  Brand Create Form Submit ------------------------------------*/    
-    Route::post('/brand-create-submit'       , 'ApiController@brandCreate')->name('brand-create-submit');
+    Route::post('/brand-create-submit'          , 'ApiController@brandCreate')->name('brand-create-submit');
 
     /*----------------------------  Brand Edit Form Submit ------------------------------------*/    
-    Route::post('/brand-edit-submit'         , 'ApiController@brandEdit')->name('brand-edit-submit');
+    Route::post('/brand-edit-submit'            , 'ApiController@brandEdit')->name('brand-edit-submit');
 
     /*----------------------------  Category Create Form Submit ------------------------------------*/    
-    Route::post('/category-create-submit'    , 'ApiController@categoryCreate')->name('category-create-submit');
+    Route::post('/category-create-submit'       , 'ApiController@categoryCreate')->name('category-create-submit');
 
     /*----------------------------  Category Edit Form Submit ------------------------------------*/    
-    Route::post('/category-edit-submit'      , 'ApiController@categoryEdit')->name('category-edit-submit');
+    Route::post('/category-edit-submit'         , 'ApiController@categoryEdit')->name('category-edit-submit');
 
     /*----------------------------  Product Create Form Submit ------------------------------------*/    
-    Route::post('/product-create-submit'     , 'ApiController@productCreate')->name('product-create-submit');
+    Route::post('/product-create-submit'        , 'ApiController@productCreate')->name('product-create-submit');
 
     /*----------------------------  Product Edit Form Submit ------------------------------------*/    
-    Route::post('/product-edit-submit'       , 'ApiController@productEdit')->name('product-edit-submit');
+    Route::post('/product-edit-submit'          , 'ApiController@productEdit')->name('product-edit-submit');
+
+    /*---------------------------- Change Product Status Form Submit ------------------------------------*/    
+    Route::post('/change-product-status-submit' , 'ApiController@changeProductStatus')->name('change-product-status-submit');
+
+    
 
     
 

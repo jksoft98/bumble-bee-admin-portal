@@ -50,6 +50,7 @@ if (!function_exists('sendNotification')) {
             $data = ['username'=> session()->get('username'), 'to' =>$response_data->data, 'type' => $type, 'message' => $message];
             $pusher->trigger('my-channel', 'my-tool', $data);
         }
+        return true;
     }
 }
 

@@ -35,6 +35,15 @@
 
   });
 
+
+  
+  function removeModalRequired(modal){
+    if(modal.find('.text-danger.custom').length > 0){
+      modal.find('.text-danger.custom').remove();
+    }
+  }
+
+
   $('#disablecheckbox').change(function(){
     $('#disablediv').find(':input[type=password]').prop('disabled',!this.checked);
   });
