@@ -139,6 +139,9 @@ return [
     'category-list-init-js'             =>"/assets/custom/js/category-list-init.js", 
     'product-init-js'                   =>"/assets/custom/js/product-init.js", 
     'product-list-init-js'              =>"/assets/custom/js/product-list-init.js", 
+    'order-init-js'                     =>"/assets/custom/js/order-init.js", 
+
+    
 
     
     

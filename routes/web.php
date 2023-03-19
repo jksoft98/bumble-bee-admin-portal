@@ -82,6 +82,10 @@ Route::group([
     /*----------------------------  Product List View -------------------------------*/     
     Route::get('/product-list/{status?}'            , 'ViewController@productList')->name('product-list-view');
 
+    /*----------------------------  Order Create View -------------------------------*/     
+    Route::get('/order-create'                      , 'ViewController@orderCreate')->name('order-create-view');
+
+
 
 });
 

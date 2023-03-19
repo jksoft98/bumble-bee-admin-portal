@@ -544,6 +544,22 @@ class ViewController extends Controller
 
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Public Function Order Create
+    |--------------------------------------------------------------------------
+    |
+    */  
+    public function orderCreate(Request $request)
+    {
+        $data =array(
+            'title'             => 'Order Create',
+            'view'              => 'order_create',
+            'script'            => array(config('site-specific.order-init-js')),
+        );
+       return $this->setDefault($data);
+    }
+
 
     /*
     |--------------------------------------------------------------------------
