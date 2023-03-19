@@ -1224,4 +1224,51 @@ class ApiController extends Controller
     }
 
 
+    public function getSingleCustomerDataAjax(Request $request){
+
+        try {
+            
+            $validator = Validator::make($request->all(), [
+                'customer_id' => 'required|numeric',
+            ]);
+
+            if($validator->fails()){
+                return array(
+                    'success' =>false,
+                    'message' =>implode(" / ",$validator->messages()->all()),
+                );
+            }
+
+            $data = array(
+                "customer_id"=> $validator->valid()['customer_id'],
+            );
+
+            $response = Http::withHeaders([
+                'content-Type'  => 'applications/json', 'authorization' => session()->get('access_token')
+            ])->get(config('site-specific.api_url').'get-single-customer-data',$data);
+            $response_data =json_decode($response);
+
+            if($response_data->success == true){  
+               
+                return array(
+                    'success' =>true,
+                    'message' =>$response_data->message,
+                    'data'    =>$response_data->data,
+                );         
+            }else{
+                return array(
+                    'success' =>false,
+                    'message' =>$response_data->message,
+                );    
+            }
+        } 
+        catch (\Throwable $e){
+            return array(
+                'success' =>false,
+                'message' =>'Oops! Something went wrong please try again later'.$e->getMessage(),
+            );   
+        }
+    }
+
+
 }

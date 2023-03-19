@@ -199,4 +199,40 @@ if (!function_exists('getVendorSelectBox')) {
     }
 }
 
+
+/*
+|--------------------------------------------------------------------------
+| Function Implement Customer SelectBox
+|--------------------------------------------------------------------------
+|
+*/ 
+if (!function_exists('getCustomerSelectBox')) {
+    function getCustomerSelectBox($select_id='',$show_select=false)
+    {
+        $response = Http::withHeaders([
+            'content-Type'  => 'applications/json', 'authorization' => session()->get('access_token')
+        ])->get(config('site-specific.api_url').'get-all-customer-data');
+        $response_data =json_decode($response);
+
+        if($response_data->success == true){   
+            $str=($show_select)? '<option value="">-select customer-</option>' : '';
+            if(!empty($response_data->data)){
+                foreach($response_data->data as $data){
+                    if($data->status){
+                        $str.= ($select_id!='' && $select_id==$data->id)? '<option selected value="'.$data->id.'">'.$data->full_name.'-('.$data->phone.')'.'</option>' : '<option value="'.$data->id.'">'.$data->full_name.'-('.$data->phone.')'.'</option>';
+                    }
+                }
+            }
+            else{
+                $str='<option value="">No Records Found</option>';
+            }
+        }
+        else{
+            $str='<option value="">No Records Found</option>';
+        }
+
+        return $str;
+    }
+}
+
 ?>

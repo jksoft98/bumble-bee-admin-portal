@@ -193,6 +193,11 @@ Route::group([
 
     /*----------------------------  change category status ajax ------------------------------------*/    
     Route::post('/change-category-status-ajax'  , 'ApiController@changeCategoryStatusAjax')->name('change-category-status-ajax');
+    
+    /*----------------------------  get single customer data ajax ------------------------------------*/    
+    Route::get('/get-single-customer-data-ajax' , 'ApiController@getSingleCustomerDataAjax')->name('get-single-customer-data-ajax');
+
+    
 
     
 
