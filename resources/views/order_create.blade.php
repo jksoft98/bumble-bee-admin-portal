@@ -1,11 +1,9 @@
 
-<style>
-    .select2-result-repository-highlighted{
-        background:yellow;
-        color: #fff;
-    }
-</style>
+
 <section class="content">
+    <!-- form start -->
+    <form action="/order-create-submit" method="POST" id="user-create-form">
+    @csrf 
     <div class="container-fluid">
         <div class="row">
 
@@ -153,6 +151,7 @@
 
         </div>
     </div>
+    </form>
 </section>
 
 <script>

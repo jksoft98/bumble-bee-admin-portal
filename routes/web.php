@@ -164,6 +164,9 @@ Route::group([
     /*---------------------------- Change Product Status Form Submit ------------------------------------*/    
     Route::post('/change-product-status-submit' , 'ApiController@changeProductStatus')->name('change-product-status-submit');
 
+    /*----------------------------  Order Create Form Submit ------------------------------------*/    
+    Route::post('/order-create-submit'          , 'ApiController@orderCreate')->name('order-create-submit');
+
     
 
     

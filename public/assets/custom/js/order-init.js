@@ -72,7 +72,7 @@
             "</div>"
             );
             $container.find(".select2-result-repository__title").prepend(repo.title);
-            $container.find(".select2-result-repository__title small").text(repo.vendor.first_name+' '+repo.vendor.last_name);
+            $container.find(".select2-result-repository__title small").text('Sold by: '+repo.vendor.first_name+' '+repo.vendor.last_name);
             $container.find(".select2-result-repository__description").text('SKU: '+repo.sku);
             $container.find(".select2-result-repository__forks").append('Price: '+new Intl.NumberFormat('en-US', { style: 'currency', currency: 'LKR' }).format(repo.price).replace(/\D00$/, ''));
             $container.find(".select2-result-repository__stargazers").append('Brand: '+repo.brand.brand_name);
@@ -196,10 +196,10 @@
                     <img src="'+url+'" alt="" width="75" height="75" style="border-style: double;border-width: 1px;cursor: pointer;">\
                     <p class="ml-2">'+product.title+'</p>\
                 </div>\
-                <input type="hidden" name="product_id[]" value="'+product.p_id+'">\
+                <input type="hidden" name="product_id['+product.vendor.id+'][]" value="'+product.p_id+'">\
             </td>\
             <td>'+new Intl.NumberFormat('en-US', { style: 'currency', currency: 'LKR' }).format(product.price).replace(/\D00$/, '')+'</td>\
-            <td><input style="min-width: 100px; max-width: 100px;" type="number" class="form-control form-control-sm" name="qty[]" id="qty-'+product.p_id+'" placeholder="Set Qty" value="1" required onchange="calculation()" onkeyup="calculation()" onfocusout="validateQty(this)"></td>\
+            <td><input style="min-width: 100px; max-width: 100px;" type="number" class="form-control form-control-sm" name="qty['+product.vendor.id+'][]" id="qty-'+product.p_id+'" placeholder="Set Qty" value="1" required onchange="calculation()" onkeyup="calculation()" onfocusout="validateQty(this)"></td>\
             <td>'+new Intl.NumberFormat('en-US', { style: 'currency', currency: 'LKR' }).format(product.price).replace(/\D00$/, '')+'</td>\
             <td><button onclick="removeItem(this)" type="button" class="btn btn-outline-danger btn-sm"><i class="fas fa-times"></i></button></td>\
         </tr>');
@@ -233,6 +233,9 @@
         var product = productArray[$(ele).closest("tr").attr('data-index')];
         if(product.stock < $(ele).val()){
             $(ele).val(product.stock);
+        }
+        if($(ele).val() <= 0){
+            $(ele).val(1)
         }
         calculation();
     }

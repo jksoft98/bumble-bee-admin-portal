@@ -851,6 +851,69 @@ class ApiController extends Controller
 
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Public function /  Order Create
+    |--------------------------------------------------------------------------
+    */
+    public function orderCreate(Request $request){
+        try {
+            $validator = Validator::make($request->all(), [
+                'customer'        => 'required|numeric',
+            ]);
+
+            if($validator->fails()){
+                return redirect()->back()->with('error', implode(" / ",$validator->messages()->all()));
+            }
+
+            $data = array(
+                "customer"    => $validator->valid()['customer'],
+            );
+
+            $orders = array();
+
+            foreach ($request['product_id'] as $index => $products) {
+                $items = array();
+                foreach ($products as $key => $product) {
+                    $items[$key] = array(
+                        "product_id" => $product,
+                        "quantity"   => $request['qty'][$index][$key],
+                    );
+                }
+                $data['vendor'] = $index;
+                $data['items']  = $items;
+                array_push($orders, $data);
+            }
+
+            $req_data['data'] = $orders;
+
+            return response()->json($orders);
+
+            $data = array(
+                "product_id"    => $validator->valid()['product_id'],
+                "status"        => $validator->valid()['status'],
+            );
+
+            $response = Http::withHeaders([
+                'content-Type'  => 'applications/json', 'authorization' => session()->get('access_token')
+            ])->put(config('site-specific.api_url').'change-product-status',$data);
+            $response_data =json_decode($response);
+
+            if($response_data->success == true){ 
+                //sendNotification('msg','Update '.$response_data->data->name.'(product) status as '.$validator->valid()['status'].'.');   
+                return redirect()->back()->with('success', $response_data->message);
+            }else{
+                return redirect()->back()->with('error', $response_data->message);
+            }
+        } 
+        catch (\Throwable $e){
+            return redirect()->back()->with('error', 'Oops! Something went wrong please try again later'.$e->getMessage());
+        }
+
+    }
+
+
+
 
 
     private function deleteImage($fileName,$diskName){

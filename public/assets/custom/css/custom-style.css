@@ -36,3 +36,25 @@ body>.loader-wrapper>svg {
     margin: 0 !important;
     font-weight: 500 !important;
 }
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| select 2 custom style
+|--------------------------------------------------------------------------
+*/
+.select2-container--default .select2-results__option--highlighted[aria-selected],
+.select2-container--default .select2-results__option--highlighted[aria-selected]:hover {
+    background-color: #7d7d7d29;
+    color: #000;
+}
+
+.select2-container--default .select2-results>.select2-results__options {
+    max-height: 400px;
+    overflow-y: auto;
+}
+.attachment-block{
+    margin-bottom: 0px;
+}
