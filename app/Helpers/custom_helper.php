@@ -183,7 +183,7 @@ if (!function_exists('getVendorSelectBox')) {
             if(!empty($response_data->data)){
                 foreach($response_data->data as $data){
                     if($data->status){
-                        $str.= ($select_id!='' && $select_id==$data->id)? '<option selected value="'.$data->id.'">'.$data->first_name.' '.$data->last_name.'-('.$data->phone.')'.'</option>' : '<option value="'.$data->id.'">'.$data->first_name.' '.$data->last_name.'-('.$data->phone.')'.'</option>';
+                        $str.= ($select_id!='' && $select_id==$data->id)? '<option selected value="'.$data->id.'">'.$data->business_name.'-('.$data->phone.')'.'</option>' : '<option value="'.$data->id.'">'.$data->business_name.'-('.$data->phone.')'.'</option>';
                     }
                 }
             }
@@ -221,6 +221,42 @@ if (!function_exists('getCustomerSelectBox')) {
                     if($data->status){
                         $str.= ($select_id!='' && $select_id==$data->id)? '<option selected value="'.$data->id.'">'.$data->full_name.'-('.$data->phone.')'.'</option>' : '<option value="'.$data->id.'">'.$data->full_name.'-('.$data->phone.')'.'</option>';
                     }
+                }
+            }
+            else{
+                $str='<option value="">No Records Found</option>';
+            }
+        }
+        else{
+            $str='<option value="">No Records Found</option>';
+        }
+
+        return $str;
+    }
+}
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Function Implement InstallmentPlan SelectBox
+|--------------------------------------------------------------------------
+|
+*/ 
+if (!function_exists('getInstallmentPlanSelectBox')) {
+    function getInstallmentPlanSelectBox($select_id='',$show_select=false)
+    {
+        $response = Http::withHeaders([
+            'content-Type'  => 'applications/json', 'authorization' => session()->get('access_token')
+        ])->get(config('site-specific.api_url').'get-all-installment-plan-data');
+        $response_data =json_decode($response);
+
+        if($response_data->success == true){   
+            $str=($show_select)? '<option value="">-select installment plan-</option>' : '';
+            if(!empty($response_data->data)){
+                foreach($response_data->data as $data){
+                    $str.= ($select_id!='' && $select_id==$data->id)? '<option selected value="'.$data->id.'">'.$data->plan.'</option>' : '<option value="'.$data->id.'">'.$data->plan.'</option>';
                 }
             }
             else{

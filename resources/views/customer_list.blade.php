@@ -27,9 +27,9 @@
                       <td>{{$data->phone}}</td>
                       <td>{{$data->nic}}</td>
                       <td>{{$data->email}}</td>
-                      <td>0</td>
-                      <td>0</td>
-                      <td>-</td>
+                      <td>{{number_format($data->loan_balance,2)}}</td>
+                      <td>{{number_format($data->used_amount,2)}}</td>
+                      <td>{{$data->installment_plan}}</td>
                       <td><?php echo ($data->status)? '<button type="button" class="btn btn-md" data-customerid="'.$data->id.'" onclick="requestChangeCustomerStatus(this,0)"><small class="badge badge-success">Active</small></button>':'<button type="button" class="btn btn-md" data-customerid="'.$data->id.'" onclick="requestChangeCustomerStatus(this,1)"><small class="badge badge-danger">Inactive</small></button>';  ?> </td>
                       <td>
                         <div class="btn-group">

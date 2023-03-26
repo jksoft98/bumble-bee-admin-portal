@@ -127,6 +127,15 @@
 
                 <div class="card card-dark card-outline total-summary">
                     <div class="card-body table-responsive">
+                    
+                           
+                            <label for="set-installment-plan">Installment Plan</label>
+                            <div class="form-group">
+                                <select class="form-control select2" style="width: 100%;" id="set-installment-plan" name="installment_plan" required>
+                                    <?= getInstallmentPlanSelectBox('',true); ?>
+                                </select>
+                            </div>
+                        
                         <table class="table">
                             <tbody>
                                 <tr>

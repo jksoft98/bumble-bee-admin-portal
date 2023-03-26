@@ -5,7 +5,7 @@
     <!-- small box -->
     <div class="small-box bg-info">
         <div class="inner">
-        <h3>150</h3>
+        <h3><?php echo (isset($dashboard_data))? $dashboard_data->order_count : 0 ?></h3>
 
         <p>Total Orders</p>
         </div>
@@ -20,7 +20,7 @@
     <!-- small box -->
     <div class="small-box bg-gray">
         <div class="inner">
-        <h3>53</sup></h3>
+        <h3><?php echo (isset($dashboard_data))? $dashboard_data->loan_count : 0 ?></sup></h3>
 
         <p>Total Loans</p>
         </div>

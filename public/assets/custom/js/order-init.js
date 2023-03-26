@@ -72,7 +72,7 @@
             "</div>"
             );
             $container.find(".select2-result-repository__title").prepend(repo.title);
-            $container.find(".select2-result-repository__title small").text('Sold by: '+repo.vendor.first_name+' '+repo.vendor.last_name);
+            $container.find(".select2-result-repository__title small").text('Sold by: '+repo.vendor.business_name);
             $container.find(".select2-result-repository__description").text('SKU: '+repo.sku);
             $container.find(".select2-result-repository__forks").append('Price: '+new Intl.NumberFormat('en-US', { style: 'currency', currency: 'LKR' }).format(repo.price).replace(/\D00$/, ''));
             $container.find(".select2-result-repository__stargazers").append('Brand: '+repo.brand.brand_name);
@@ -162,7 +162,7 @@
 
         $('.result-parent').append('<div class="card card-gray vendor-card" id="vendor-card-'+product.vendor.id+'">\
             <div class="card-header" style="background-color: #8ca4b9;">\
-                <h3 class="card-title">'+product.vendor.first_name+' '+product.vendor.last_name+'</h3>\
+                <h3 class="card-title">'+product.vendor.business_name+'</h3>\
             </div>\
             <div class="card-body table-responsive">\
                 <table class="table">\

@@ -13,7 +13,15 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <div class="row">
+                <div class="row basic-info">
+                    @if($user->user_role == 2)
+                    <div class="col-md-12" id="business-name-col">
+                        <div class="form-group">
+                            <label for="business_name">Business Name</label>
+                            <input type="text" class="form-control" id="business_name" name="business_name" placeholder="Business Name" value="{{$user->business_name}}" required>
+                        </div>
+                    </div>
+                    @endif
                     <input type="hidden" name="user_id" value="{{$user->id}}">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -36,7 +44,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="userRole">User Role</label>
-                            <select class="form-control select2" style="width: 100%;" id="userRole" name="user_role" required>
+                            <select class="form-control select2" style="width: 100%;" id="userRole" name="user_role" required onchange="setUserRole(this)">
                                 <?= getUserRolesSelectBox($user->user_role,true); ?>
                             </select>
                         </div>

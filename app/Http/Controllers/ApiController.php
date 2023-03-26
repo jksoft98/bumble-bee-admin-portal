@@ -163,6 +163,10 @@ class ApiController extends Controller
                 'user_role'     => 'required|numeric',
             ];
 
+            if($request->user_role == 2){
+                $validation_array['business_name']  = 'required|string|between:2,100';
+            }
+
             $customMessages = [
                 'regex' => 'Password should be minimum 5 characters, at least one uppercase letter and one lowercase letter'
             ];
@@ -182,6 +186,10 @@ class ApiController extends Controller
                 'password'              => $validator->valid()['password'],   
                 'password_confirmation' => $validator->valid()['password_confirmation'],        
             );
+
+            if($validator->valid()['user_role'] == 2){
+                $data['business_name']          = $validator->valid()['business_name'];
+            }
 
             $response = Http::withHeaders([
                 'content-Type'  => 'applications/json', 'authorization' => session()->get('access_token')
@@ -224,6 +232,11 @@ class ApiController extends Controller
             if($request->has('reset_password')){
                 $validation_array['password']  = 'required|string|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z\d@$!^%*#?&]{5,}$/';
             } 
+
+            if($request->user_role == 2){
+                $validation_array['business_name']  = 'required|string|between:2,100';
+            }
+
             $customMessages = [
                 'regex' => 'Password should be minimum 5 characters, at least one uppercase letter and one lowercase letter'
             ];
@@ -242,6 +255,10 @@ class ApiController extends Controller
                 "user_role"             => $validator->valid()['user_role'], 
                 "user_id"               => $validator->valid()['user_id'],          
             );
+
+            if($validator->valid()['user_role'] == 2){
+                $data['business_name']          = $validator->valid()['business_name'];
+            }
 
             if($request->has('reset_password')){
                 $data['reset_password']         = $validator->valid()['reset_password'];
@@ -850,7 +867,6 @@ class ApiController extends Controller
     }
 
 
-
     /*
     |--------------------------------------------------------------------------
     | Public function /  Order Create
@@ -860,6 +876,8 @@ class ApiController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'customer'        => 'required|numeric',
+                'installment_plan'=> 'required|numeric',
+                'product_id'      => 'required|array',
             ]);
 
             if($validator->fails()){
@@ -867,7 +885,8 @@ class ApiController extends Controller
             }
 
             $data = array(
-                "customer"    => $validator->valid()['customer'],
+                "customer"          => $validator->valid()['customer'],
+                "installment_plan"  => $validator->valid()['installment_plan'],
             );
 
             $orders = array();
@@ -885,20 +904,10 @@ class ApiController extends Controller
                 array_push($orders, $data);
             }
 
-            $req_data['data'] = $orders;
-
-            return response()->json($orders);
-
-            $data = array(
-                "product_id"    => $validator->valid()['product_id'],
-                "status"        => $validator->valid()['status'],
-            );
-
             $response = Http::withHeaders([
                 'content-Type'  => 'applications/json', 'authorization' => session()->get('access_token')
-            ])->put(config('site-specific.api_url').'change-product-status',$data);
+            ])->post(config('site-specific.api_url').'vendor-orders-create',['data'=>$orders]);
             $response_data =json_decode($response);
-
             if($response_data->success == true){ 
                 //sendNotification('msg','Update '.$response_data->data->name.'(product) status as '.$validator->valid()['status'].'.');   
                 return redirect()->back()->with('success', $response_data->message);
@@ -911,7 +920,6 @@ class ApiController extends Controller
         }
 
     }
-
 
 
 

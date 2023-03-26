@@ -133,7 +133,7 @@
                       <td>{{$data->category->category_name}}</td>
                       <td>@if($data->status=='approved')<small class="badge bg-lime">Approved</small>@endif @if($data->status=='pending')<small class="badge badge-info">Pending</small>@endif @if($data->status=='disapproved')<small class="badge badge-danger">Disapproved</small>@endif</td>
                       @if(session()->get('user_role') != 2)
-                      <td>{{$data->vendor->first_name}} {{$data->vendor->last_name}}</td>
+                      <td>{{$data->vendor->business_name}}</td>
                       @endif
                       <td>
                         <div class="btn-group" data-id='{{json_encode($data->id)}}' data-title='{{json_encode($data->title)}}'>

@@ -154,6 +154,7 @@ class ViewController extends Controller
         $data =array(
             'title'             => 'User Create',
             'view'              => 'user_create',
+            'script'            => array(config('site-specific.user-init-js')),
         );
 
        return $this->setDefault($data);
@@ -178,6 +179,7 @@ class ViewController extends Controller
                 $data =array(
                     'title'             => 'User Edit',
                     'view'              => 'user_edit',
+                    'script'            => array(config('site-specific.user-init-js')),
                     'user'              => $response_data->data,
                 );
                 return $this->setDefault($data);

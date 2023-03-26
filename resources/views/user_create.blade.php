@@ -13,7 +13,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <div class="row">
+                <div class="row basic-info">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="first_name">First Name</label>
@@ -35,7 +35,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="userRole">User Role</label>
-                            <select class="form-control select2" style="width: 100%;" id="userRole" name="user_role" required>
+                            <select class="form-control select2" style="width: 100%;" id="userRole" name="user_role" required onchange="setUserRole(this)">
                                 <?= getUserRolesSelectBox('',true); ?>
                             </select>
                         </div>
