@@ -6,27 +6,22 @@
 |--------------------------------------------------------------------------
 */
 $( document ).ready(function() {
-    pieChart();
-    lineChart();
+    lineChartMonthly(sales_chart_data.monthly);
+    lineChartWeekly(sales_chart_data.weekly);
+    lineChartDaily(sales_chart_data.daily);
+    pieChartLastThirtyDays(sales_item_chart_data.last_thirty_days);
+    pieChartLastTwowellMonths(sales_item_chart_data.last_twowell_months);
 });
 
 
-function pieChart(){
+function pieChartLastThirtyDays(chart_data){
 
     const data = {
-        labels: [
-          'Red',
-          'Blue',
-          'Yellow'
-        ],
+        labels: chart_data.map(item => item.product),
         datasets: [{
-          label: 'My First Dataset',
-          data: [300, 50, 100],
-          backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
-          ],
+          //label: 'My First Dataset',
+          data: chart_data.map(item => item.sales_qty),
+          backgroundColor: chart_data.map(item => item.color),
           hoverOffset: 4
         }]
     };
@@ -38,26 +33,60 @@ function pieChart(){
     };
   
     const myChart = new Chart(
-        document.getElementById('pieChart'),
+        document.getElementById('pieChartLastThirtyDays'),
         config
     );
 
 }
 
 
-function lineChart(){
+function pieChartLastTwowellMonths(chart_data){
+
+    const data = {
+        labels: chart_data.map(item => item.product),
+        datasets: [{
+          //label: 'My First Dataset',
+          data: chart_data.map(item => item.sales_qty),
+          backgroundColor: chart_data.map(item => item.color),
+          hoverOffset: 4
+        }]
+    };
+
+    const config = {
+        type: 'doughnut',
+        data: data,
+        options: {}
+    };
+  
+    const myChart = new Chart(
+        document.getElementById('pieChartLastTwowellMonths'),
+        config
+    );
+}
 
 
-    const labels = ['jan', 'feb', 'jan','jan','jan','jan','jan'];
+function lineChartMonthly(chart_data){
+
+
+    const labels = chart_data.map(item => item.month);
     const data = {
     labels: labels,
-    datasets: [{
-        label: 'My First Dataset',
-        data: [65, 59, 80, 81, 56, 55, 40],
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1
-    }]
+    datasets: [
+        {
+            label: 'Sales',
+            data: chart_data.map(item => item.grand_total),
+            fill: false,
+            borderColor: 'rgb(229, 152, 102)',
+            tension: 0.1
+        },
+        {
+            label: 'Orders',
+            data: chart_data.map(item => item.orders),
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        }
+    ]
     };
 
     const config = {
@@ -66,7 +95,80 @@ function lineChart(){
     };
 
     const myChart = new Chart(
-        document.getElementById('lineChart'),
+        document.getElementById('lineChartMonthly'),
+        config
+    );
+}
+
+
+
+function lineChartWeekly(chart_data){
+
+
+    const labels = chart_data.map(item => item.week);
+    const data = {
+    labels: labels,
+    datasets: [
+        {
+            label: 'Sales',
+            data: chart_data.map(item => item.grand_total),
+            fill: false,
+            borderColor: 'rgb(229, 152, 102)',
+            tension: 0.1
+        },
+        {
+            label: 'Orders',
+            data: chart_data.map(item => item.orders),
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        }
+    ]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+    };
+
+    const myChart = new Chart(
+        document.getElementById('lineChartWeekly'),
+        config
+    );
+}
+
+
+function lineChartDaily(chart_data){
+
+
+    const labels = chart_data.map(item => item.date);
+    const data = {
+    labels: labels,
+    datasets: [
+        {
+            label: 'Sales',
+            data: chart_data.map(item => item.grand_total),
+            fill: false,
+            borderColor: 'rgb(229, 152, 102)',
+            tension: 0.1
+        },
+        {
+            label: 'Orders',
+            data: chart_data.map(item => item.orders),
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        }
+    ]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+    };
+
+    const myChart = new Chart(
+        document.getElementById('lineChartDaily'),
         config
     );
 }

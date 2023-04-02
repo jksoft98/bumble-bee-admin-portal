@@ -97,6 +97,7 @@ class ViewController extends Controller
             'content-Type'  => 'applications/json', 'authorization' => session()->get('access_token')
         ])->get(config('site-specific.api_url').'get-dashboard-data');
         $response_data =json_decode($response);
+       //return response()->json($response_data);
         if(!empty($response_data)){
             if($response_data->success == true){
                 $data['dashboard_data'] = $response_data->data;
