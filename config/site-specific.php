@@ -141,8 +141,7 @@ return [
     'product-list-init-js'              =>"/assets/custom/js/product-list-init.js", 
     'order-init-js'                     =>"/assets/custom/js/order-init.js", 
     'user-init-js'                      =>"/assets/custom/js/user-init.js", 
-
-    
+    'order-list-init-js'                =>"/assets/custom/js/order-list-init.js", 
 
     
 

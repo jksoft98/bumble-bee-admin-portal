@@ -231,10 +231,11 @@
 
     function validateQty(ele){
         var product = productArray[$(ele).closest("tr").attr('data-index')];
-        if(product.stock < $(ele).val()){
+        var val     = parseInt($(ele).val());
+        if(product.stock < val){
             $(ele).val(product.stock);
         }
-        if($(ele).val() <= 0){
+        if(val <= 0){
             $(ele).val(1)
         }
         calculation();

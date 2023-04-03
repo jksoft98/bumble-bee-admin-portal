@@ -301,6 +301,7 @@
           </li>
           @endif
 
+          @if(in_array('order-create-view', session()->get('user_permissions')) || in_array('order-list-view', session()->get('user_permissions')) || session()->get('user_role') == 1)
           <li class="nav-item {{ (request()->is('order-create') || request()->is('order-list') || request()->is('order-edit/*')) ? 'menu-is-opening menu-open' : '' }}">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cart-plus"></i>
@@ -310,25 +311,25 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-             
+              @if(in_array('order-create-view', session()->get('user_permissions')) || session()->get('user_role') == 1)
                 <li class="nav-item">
                   <a href="/order-create" class="nav-link">
                     <i class="far {{ (request()->is('order-create')) ? 'fa-dot-circle' : 'fa-circle' }} nav-icon"></i>
                     <p>Create</p>
                   </a>
                 </li>
-             
-            
+              @endif
+              @if(in_array('order-list-view', session()->get('user_permissions')) || session()->get('user_role') == 1)
               <li class="nav-item">
                 <a href="/order-list" class="nav-link">
                   <i class="far {{ (request()->is('order-list')) ? 'fa-dot-circle' : 'fa-circle' }} nav-icon"></i>
                   <p>List</p>
                 </a>
               </li>
-
+              @endif
             </ul>
           </li>
-
+          @endif
 
           <li class="nav-item">
             <a href="/logout" class="nav-link"> &nbsp

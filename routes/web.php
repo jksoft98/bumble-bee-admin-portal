@@ -85,7 +85,8 @@ Route::group([
     /*----------------------------  Order Create View -------------------------------*/     
     Route::get('/order-create'                      , 'ViewController@orderCreate')->name('order-create-view');
 
-
+    /*----------------------------  Order List View -------------------------------*/     
+    Route::get('/order-list'                        , 'ViewController@orderList')->name('order-list-view');
 
 });
 

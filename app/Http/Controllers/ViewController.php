@@ -203,7 +203,7 @@ class ViewController extends Controller
             'content-Type'  => 'applications/json', 'authorization' => session()->get('access_token')
         ])->get(config('site-specific.api_url').'get-all-customer-data');
         $response_data =json_decode($response);
-
+  
         if(!empty($response_data)){
             if($response_data->success == true){
         
@@ -258,7 +258,7 @@ class ViewController extends Controller
             'content-Type'  => 'applications/json', 'authorization' => session()->get('access_token')
         ])->get(config('site-specific.api_url').'get-single-customer-data',["customer_id" => $request->id]);
         $response_data =json_decode($response);
-
+            
         if(!empty($response_data)){
             if($response_data->success == true){
                 $data =array(
@@ -561,6 +561,44 @@ class ViewController extends Controller
             'script'            => array(config('site-specific.order-init-js')),
         );
        return $this->setDefault($data);
+    }
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Public Function Order List
+    |--------------------------------------------------------------------------
+    |
+    */  
+    public function orderList(Request $request)
+    {
+        $response = Http::withHeaders([
+            'content-Type'  => 'applications/json', 'authorization' => session()->get('access_token')
+        ])->get(config('site-specific.api_url').'get-all-order-data');
+        $response_data =json_decode($response);
+
+        if(!empty($response_data)){
+            if($response_data->success == true){
+                $data =array(
+                    'title'             => 'Order List',
+                    'view'              => 'order_list',
+                    'css'               => array(config('site-specific.dataTables-bootstrap4-min-css'),config('site-specific.responsive-bootstrap4-min-css'),
+                                                config('site-specific.buttons-bootstrap4-min-css')),
+                    'script'            => array(config('site-specific.jquery-dataTables-min-js'),config('site-specific.dataTables-bootstrap4-min-js'),
+                                                config('site-specific.dataTables-responsive-min-js'),config('site-specific.responsive-bootstrap4-min-js'),
+                                                config('site-specific.dataTables-buttons-min-js'),config('site-specific.buttons-bootstrap4-min-js'),
+                                                config('site-specific.jszip-min-js'),config('site-specific.pdfmake-min-js'),
+                                                config('site-specific.vfs-fonts-js'),config('site-specific.buttons-html5-min-js'),
+                                                config('site-specific.buttons-print-min-js'),config('site-specific.buttons-colVis-min-js'),
+                                                config('site-specific.order-list-init-js')),
+                    'orders'            => $response_data->data,
+                );
+                return $this->setDefault($data);
+            }
+            return redirect()->route('dashboard-view')->with('error', $response_data->message);
+        }
+        return redirect()->route('dashboard-view')->with('error', 'Oops! Data Not Loaded.');
     }
 
 
